@@ -1,5 +1,5 @@
 package com.apps.quantitymeasurement;
 
 public interface IMeasurable {
-    double getConversionFactor();
+    double convertToBase(double value);
 }

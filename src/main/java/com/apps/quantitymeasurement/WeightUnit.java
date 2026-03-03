@@ -1,6 +1,6 @@
 package com.apps.quantitymeasurement;
 
-public enum WeightUnit implements IMeasurable {
+public enum WeightUnit implements IArithmeticMeasurable {
     KG(1000.0),
     GRAMS(1.0),
     TONNE(1000000.0);
@@ -14,5 +14,10 @@ public enum WeightUnit implements IMeasurable {
     @Override
     public double getConversionFactor() {
         return conversionFactor;
+    }
+
+    @Override
+    public double convertToBase(double value) {
+        return value * this.conversionFactor;
     }
 }
