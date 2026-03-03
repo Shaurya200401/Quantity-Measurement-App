@@ -10,14 +10,15 @@ public class Quantity<U extends IMeasurable> {
     }
 
     public double convertToBaseUnit() {
-        return Math.round(this.value * this.unit.getConversionFactor() * 1000.0) / 1000.0;
+        return Math.round(this.value * this.unit.getConversionFactor() * 100.0) / 100.0;
     }
 
     public boolean compare(Quantity<U> other) {
         if (other == null)
             return false;
 
-        return Double.compare(this.convertToBaseUnit(), other.convertToBaseUnit()) == 0;
+        double epsilon = 0.001;
+        return Math.abs(this.convertToBaseUnit() - other.convertToBaseUnit()) < epsilon;
     }
 
     public Quantity<U> add(Quantity<U> other, U targetUnit) {
@@ -48,6 +49,7 @@ public class Quantity<U extends IMeasurable> {
         // equals() to be safe against raw types
         if (this.unit.getClass() != other.unit.getClass())
             return false;
-        return Double.compare(this.convertToBaseUnit(), other.convertToBaseUnit()) == 0;
+        double epsilon = 0.001;
+        return Math.abs(this.convertToBaseUnit() - other.convertToBaseUnit()) < epsilon;
     }
 }

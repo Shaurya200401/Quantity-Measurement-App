@@ -131,7 +131,8 @@ public class QuantityMeasurementAppTest {
         var gallon1 = new Quantity<>(1.0, VolumeUnit.GALLON);
         var liters3_78 = new Quantity<>(3.78541, VolumeUnit.LITRE);
         var result = gallon1.add(liters3_78, VolumeUnit.LITRE);
-        assertTrue(result.equals(new Quantity<>(7.57, VolumeUnit.LITRE))); // 3.78541 + 3.78541 = 7.57082 ~ 7.57
+        assertTrue(result.equals(new Quantity<>(7.58, VolumeUnit.LITRE))); // 1 Gallon=3.79L, 3.785L=3.79L ->
+                                                                           // 3.79+3.79=7.58
     }
 
     @Test
