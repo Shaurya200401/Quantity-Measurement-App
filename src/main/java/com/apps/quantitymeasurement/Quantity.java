@@ -1,5 +1,7 @@
 package com.apps.quantitymeasurement;
 
+import java.util.function.DoubleBinaryOperator;
+
 public class Quantity<U extends IMeasurable> {
     private final double value;
     private final U unit;
@@ -21,15 +23,22 @@ public class Quantity<U extends IMeasurable> {
         return Math.abs(this.convertToBaseUnit() - other.convertToBaseUnit()) < epsilon;
     }
 
-    public Quantity<U> add(Quantity<U> other, U targetUnit) {
+    private Quantity<U> calculate(Quantity<U> other, U targetUnit, DoubleBinaryOperator operator) {
         if (other == null)
-            throw new IllegalArgumentException("Cannot add null quantity");
+            throw new IllegalArgumentException("Cannot operate on null quantity");
         if (targetUnit == null)
             throw new IllegalArgumentException("Target unit cannot be null");
 
-        double sumInBase = this.convertToBaseUnit() + other.convertToBaseUnit();
-        double targetValue = sumInBase / targetUnit.getConversionFactor();
+        double val1 = this.convertToBaseUnit();
+        double val2 = other.convertToBaseUnit();
+        double resultInBase = operator.applyAsDouble(val1, val2);
+
+        double targetValue = resultInBase / targetUnit.getConversionFactor();
         return new Quantity<>(Math.round(targetValue * 100.0) / 100.0, targetUnit);
+    }
+
+    public Quantity<U> add(Quantity<U> other, U targetUnit) {
+        return this.calculate(other, targetUnit, Double::sum);
     }
 
     public Quantity<U> add(Quantity<U> other) {
@@ -37,14 +46,7 @@ public class Quantity<U extends IMeasurable> {
     }
 
     public Quantity<U> subtract(Quantity<U> other, U targetUnit) {
-        if (other == null)
-            throw new IllegalArgumentException("Cannot subtract null quantity");
-        if (targetUnit == null)
-            throw new IllegalArgumentException("Target unit cannot be null");
-
-        double diffInBase = this.convertToBaseUnit() - other.convertToBaseUnit();
-        double targetValue = diffInBase / targetUnit.getConversionFactor();
-        return new Quantity<>(Math.round(targetValue * 100.0) / 100.0, targetUnit);
+        return this.calculate(other, targetUnit, (a, b) -> a - b);
     }
 
     public Quantity<U> subtract(Quantity<U> other) {
