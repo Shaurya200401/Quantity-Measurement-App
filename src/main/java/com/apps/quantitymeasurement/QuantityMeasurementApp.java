@@ -3,36 +3,47 @@ package com.apps.quantitymeasurement;
 public class QuantityMeasurementApp {
 
     public static void demonstrateLengthComparison() {
-        Length yards1 = new Length(1.0, Length.LengthUnit.YARDS);
-        Length feet3 = new Length(3.0, Length.LengthUnit.FEET);
-        System.out.println("Input: Quantity(1.0, YARDS) and Quantity(3.0, FEET)");
-        System.out.println("Output: Equal (" + yards1.equals(feet3) + ")\n");
+        System.out.println("--- Length Comparison ---");
+        Quantity yards1 = new Quantity(1.0, LengthUnit.YARDS);
+        Quantity feet3 = new Quantity(3.0, LengthUnit.FEET);
+        System.out.println("1.0 YARDS == 3.0 FEET : " + yards1.equals(feet3));
 
-        Length yards1_v2 = new Length(1.0, Length.LengthUnit.YARDS);
-        Length inches36 = new Length(36.0, Length.LengthUnit.INCHES);
-        System.out.println("Input: Quantity(1.0, YARDS) and Quantity(36.0, INCHES)");
-        System.out.println("Output: Equal (" + yards1_v2.equals(inches36) + ")\n");
+        Quantity cm1 = new Quantity(1.0, LengthUnit.CENTIMETERS);
+        Quantity inches039 = new Quantity(0.393701, LengthUnit.INCHES);
+        System.out.println("1.0 CENTIMETERS == 0.393701 INCHES : " + cm1.equals(inches039));
+    }
 
-        Length yards2_1 = new Length(2.0, Length.LengthUnit.YARDS);
-        Length yards2_2 = new Length(2.0, Length.LengthUnit.YARDS);
-        System.out.println("Input: Quantity(2.0, YARDS) and Quantity(2.0, YARDS)");
-        System.out.println("Output: Equal (" + yards2_1.equals(yards2_2) + ")\n");
+    public static void demonstrateVolumeComparison() {
+        System.out.println("\n--- Volume Comparison ---");
+        Quantity gallon1 = new Quantity(1.0, VolumeUnit.GALLON);
+        Quantity liters378 = new Quantity(3.78541, VolumeUnit.LITRE);
+        System.out.println("1.0 GALLON == 3.78541 LITRES : " + gallon1.equals(liters378));
 
-        Length cm2_1 = new Length(2.0, Length.LengthUnit.CENTIMETERS);
-        Length cm2_2 = new Length(2.0, Length.LengthUnit.CENTIMETERS);
-        System.out.println("Input: Quantity(2.0, CENTIMETERS) and Quantity(2.0, CENTIMETERS)");
-        System.out.println("Output: Equal (" + cm2_1.equals(cm2_2) + ")\n");
+        Quantity liters1 = new Quantity(1.0, VolumeUnit.LITRE);
+        Quantity ml1000 = new Quantity(1000.0, VolumeUnit.ML);
+        System.out.println("1.0 LITRE == 1000.0 ML : " + liters1.equals(ml1000));
+    }
 
-        Length cm1 = new Length(1.0, Length.LengthUnit.CENTIMETERS);
-        Length inches039 = new Length(0.393701, Length.LengthUnit.INCHES);
-        System.out.println("Input: Quantity(1.0, CENTIMETERS) and Quantity(0.393701, INCHES)");
-        System.out.println("Output: Equal (" + cm1.equals(inches039) + ")\n");
+    public static void demonstrateWeightComparison() {
+        System.out.println("\n--- Weight Comparison ---");
+        Quantity kg1 = new Quantity(1.0, WeightUnit.KG);
+        Quantity grams1000 = new Quantity(1000.0, WeightUnit.GRAMS);
+        System.out.println("1.0 KG == 1000.0 GRAMS : " + kg1.equals(grams1000));
 
-        System.out.println("Concepts Learned by Implementing UC4:");
-        System.out.println("SCALABILITY OF GENERIC DESIGN");
+        Quantity tonne1 = new Quantity(1.0, WeightUnit.TONNE);
+        Quantity kg1000 = new Quantity(1000.0, WeightUnit.KG);
+        System.out.println("1.0 TONNE == 1000.0 KG : " + tonne1.equals(kg1000));
+    }
+
+    public static void demonstrateVolumeAndWeight() {
+        System.out.println("\nConcepts Learned by Implementing UC4-UC5:");
+        System.out.println("GENERIC DESIGN, EXTENDED UNITS");
     }
 
     public static void main(String[] args) {
         demonstrateLengthComparison();
+        demonstrateVolumeComparison();
+        demonstrateWeightComparison();
+        demonstrateVolumeAndWeight();
     }
 }

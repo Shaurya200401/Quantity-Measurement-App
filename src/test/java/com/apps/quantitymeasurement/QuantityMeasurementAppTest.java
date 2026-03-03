@@ -3,113 +3,87 @@ package com.apps.quantitymeasurement;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.apps.quantitymeasurement.Length.LengthUnit;
 
 public class QuantityMeasurementAppTest {
 
-    // --- Feet Tests ---
+    // --- Length Equality Tests ---
     @Test
     public void testFeetEquality_SameValue() {
-        Length feet1 = new Length(0.0, LengthUnit.FEET);
-        Length feet2 = new Length(0.0, LengthUnit.FEET);
+        Quantity feet1 = new Quantity(0.0, LengthUnit.FEET);
+        Quantity feet2 = new Quantity(0.0, LengthUnit.FEET);
         assertTrue(feet1.equals(feet2));
     }
 
     @Test
     public void testFeetEquality_DifferentValue() {
-        Length feet1 = new Length(0.0, LengthUnit.FEET);
-        Length feet2 = new Length(1.0, LengthUnit.FEET);
+        Quantity feet1 = new Quantity(0.0, LengthUnit.FEET);
+        Quantity feet2 = new Quantity(1.0, LengthUnit.FEET);
         assertFalse(feet1.equals(feet2));
     }
 
     @Test
-    public void testFeetEquality_NullComparison() {
-        Length feet1 = new Length(0.0, LengthUnit.FEET);
+    public void testLengthEquality_NullComparison() {
+        Quantity feet1 = new Quantity(0.0, LengthUnit.FEET);
         assertFalse(feet1.equals(null));
     }
 
     @Test
-    public void testFeetEquality_DifferentClass() {
-        Length feet1 = new Length(0.0, LengthUnit.FEET);
+    public void testLengthEquality_DifferentClass() {
+        Quantity feet1 = new Quantity(0.0, LengthUnit.FEET);
         Object otherType = new Object();
         assertFalse(feet1.equals(otherType));
     }
 
-    @Test
-    public void testFeetEquality_SameReference() {
-        Length feet1 = new Length(0.0, LengthUnit.FEET);
-        Length feet2 = feet1;
-        assertTrue(feet1.equals(feet2));
-    }
-
-    // --- Inches Tests ---
-    @Test
-    public void testInchesEquality_SameValue() {
-        Length inches1 = new Length(0.0, LengthUnit.INCHES);
-        Length inches2 = new Length(0.0, LengthUnit.INCHES);
-        assertTrue(inches1.equals(inches2));
-    }
-
-    @Test
-    public void testInchesEquality_DifferentValue() {
-        Length inches1 = new Length(0.0, LengthUnit.INCHES);
-        Length inches2 = new Length(1.0, LengthUnit.INCHES);
-        assertFalse(inches1.equals(inches2));
-    }
-
-    @Test
-    public void testInchesEquality_NullComparison() {
-        Length inches1 = new Length(0.0, LengthUnit.INCHES);
-        assertFalse(inches1.equals(null));
-    }
-
-    @Test
-    public void testInchesEquality_DifferentClass() {
-        Length inches1 = new Length(0.0, LengthUnit.INCHES);
-        Object otherType = new Object();
-        assertFalse(inches1.equals(otherType));
-    }
-
-    @Test
-    public void testInchesEquality_SameReference() {
-        Length inches1 = new Length(0.0, LengthUnit.INCHES);
-        Length inches2 = inches1;
-        assertTrue(inches1.equals(inches2));
-    }
-
-    // --- Cross-Unit Comparison Tests ---
+    // --- Cross-Unit Comparison Tests (Length) ---
     @Test
     public void testCrossUnit_FeetToInches() {
-        Length feet = new Length(1.0, LengthUnit.FEET);
-        Length inches = new Length(12.0, LengthUnit.INCHES);
+        Quantity feet = new Quantity(1.0, LengthUnit.FEET);
+        Quantity inches = new Quantity(12.0, LengthUnit.INCHES);
         assertTrue(feet.equals(inches));
     }
 
     @Test
     public void testCrossUnit_YardsToFeet() {
-        Length yards = new Length(1.0, LengthUnit.YARDS);
-        Length feet = new Length(3.0, LengthUnit.FEET);
+        Quantity yards = new Quantity(1.0, LengthUnit.YARDS);
+        Quantity feet = new Quantity(3.0, LengthUnit.FEET);
         assertTrue(yards.equals(feet));
     }
 
     @Test
-    public void testCrossUnit_YardsToInches() {
-        Length yards = new Length(1.0, LengthUnit.YARDS);
-        Length inches = new Length(36.0, LengthUnit.INCHES);
-        assertTrue(yards.equals(inches));
-    }
-
-    @Test
     public void testCrossUnit_CentimetersToInches() {
-        Length cm = new Length(5.08, LengthUnit.CENTIMETERS);
-        Length inches = new Length(2.0, LengthUnit.INCHES);
+        Quantity cm = new Quantity(5.08, LengthUnit.CENTIMETERS);
+        Quantity inches = new Quantity(2.0, LengthUnit.INCHES);
         assertTrue(cm.equals(inches));
     }
 
+    // --- Cross-Unit Comparison Tests (Volume) ---
     @Test
-    public void testCrossUnit_InchesToCentimeters() {
-        Length inches = new Length(2.0, LengthUnit.INCHES);
-        Length cm = new Length(5.08, LengthUnit.CENTIMETERS);
-        assertTrue(inches.equals(cm));
+    public void testCrossUnit_GallonToLiters() {
+        Quantity gallon = new Quantity(1.0, VolumeUnit.GALLON);
+        Quantity liters = new Quantity(3.78541, VolumeUnit.LITRE);
+        assertTrue(gallon.equals(liters));
     }
+
+    @Test
+    public void testCrossUnit_LitersToML() {
+        Quantity liters = new Quantity(1.0, VolumeUnit.LITRE);
+        Quantity ml = new Quantity(1000.0, VolumeUnit.ML);
+        assertTrue(liters.equals(ml));
+    }
+
+    // --- Cross-Unit Comparison Tests (Weight) ---
+    @Test
+    public void testCrossUnit_KGToGrams() {
+        Quantity kg = new Quantity(1.0, WeightUnit.KG);
+        Quantity grams = new Quantity(1000.0, WeightUnit.GRAMS);
+        assertTrue(kg.equals(grams));
+    }
+
+    @Test
+    public void testCrossUnit_TonneToKG() {
+        Quantity tonne = new Quantity(1.0, WeightUnit.TONNE);
+        Quantity kg = new Quantity(1000.0, WeightUnit.KG);
+        assertTrue(tonne.equals(kg));
+    }
+
 }

@@ -1,27 +1,10 @@
 package com.apps.quantitymeasurement;
 
-public class Length {
-    public enum LengthUnit {
-        FEET(12.0),
-        INCHES(1.0),
-        YARDS(36.0),
-        CENTIMETERS(0.393701);
-
-        private final double conversionFactor;
-
-        LengthUnit(double conversionFactor) {
-            this.conversionFactor = conversionFactor;
-        }
-
-        public double getConversionFactor() {
-            return conversionFactor;
-        }
-    }
-
+public class Quantity {
     private final double value;
-    private final LengthUnit unit;
+    private final IMeasurable unit;
 
-    public Length(double value, LengthUnit unit) {
+    public Quantity(double value, IMeasurable unit) {
         this.value = value;
         this.unit = unit;
     }
@@ -30,9 +13,10 @@ public class Length {
         return Math.round(this.value * this.unit.getConversionFactor() * 1000.0) / 1000.0;
     }
 
-    public boolean compare(Length other) {
+    public boolean compare(Quantity other) {
         if (other == null)
             return false;
+
         return Double.compare(this.convertToBaseUnit(), other.convertToBaseUnit()) == 0;
     }
 
@@ -44,7 +28,7 @@ public class Length {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Length other = (Length) obj;
+        Quantity other = (Quantity) obj;
         return compare(other);
     }
 }
