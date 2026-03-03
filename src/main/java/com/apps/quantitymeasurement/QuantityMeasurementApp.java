@@ -53,10 +53,25 @@ public class QuantityMeasurementApp {
         System.out.println("ADDITION, METRIC CONVERSIONS, IMMUTABILITY");
     }
 
+    public static void demonstrateAdvancedArithmetic() {
+        System.out.println("\n--- Advanced Arithmetic (UC12) ---");
+        var yards2 = new Quantity<>(2.0, LengthUnit.YARDS);
+        var feet3 = new Quantity<>(3.0, LengthUnit.FEET);
+        var resultSub = yards2.subtract(feet3);
+        System.out.println("2.0 YARDS - 3.0 FEET = "
+                + resultSub.convertToBaseUnit() / LengthUnit.YARDS.getConversionFactor() + " YARDS");
+
+        var inch2 = new Quantity<>(2.0, LengthUnit.INCHES);
+        var inch1 = new Quantity<>(1.0, LengthUnit.INCHES);
+        double resultDiv = inch2.divide(inch1);
+        System.out.println("2.0 INCHES / 1.0 INCH = " + resultDiv);
+    }
+
     public static void main(String[] args) {
         demonstrateLengthComparison();
         demonstrateVolumeComparison();
         demonstrateWeightComparison();
         demonstrateAddition();
+        demonstrateAdvancedArithmetic();
     }
 }

@@ -158,4 +158,43 @@ public class QuantityMeasurementAppTest {
         // Assert they are not the same object in memory
         assertFalse(original == result);
     }
+
+    // --- Subtraction Tests (UC12) ---
+    @Test
+    public void testSubtract_Lengths_Implicit() {
+        var yards2 = new Quantity<>(2.0, LengthUnit.YARDS);
+        var feet3 = new Quantity<>(3.0, LengthUnit.FEET);
+        var result = yards2.subtract(feet3);
+        assertTrue(result.equals(new Quantity<>(1.0, LengthUnit.YARDS))); // 2 YARDS - 1 YARD = 1 YARD
+    }
+
+    @Test
+    public void testSubtract_Volumes_Explicit() {
+        var gallon1 = new Quantity<>(1.0, VolumeUnit.GALLON);
+        var liters1 = new Quantity<>(1.0, VolumeUnit.LITRE);
+        var result = gallon1.subtract(liters1, VolumeUnit.LITRE);
+        assertTrue(result.equals(new Quantity<>(2.79, VolumeUnit.LITRE))); // 3.79 - 1.0 = 2.79
+    }
+
+    // --- Division Tests (UC12) ---
+    @Test
+    public void testDivide_Lengths() {
+        var inch2 = new Quantity<>(2.0, LengthUnit.INCHES);
+        var inch1 = new Quantity<>(1.0, LengthUnit.INCHES);
+        double result = inch2.divide(inch1);
+        assertTrue(Math.abs(result - 2.0) < 0.001);
+    }
+
+    @Test
+    public void testDivide_ByZero_Exception() {
+        var inch2 = new Quantity<>(2.0, LengthUnit.INCHES);
+        var inch0 = new Quantity<>(0.0, LengthUnit.INCHES);
+        boolean exceptionThrown = false;
+        try {
+            inch2.divide(inch0);
+        } catch (ArithmeticException e) {
+            exceptionThrown = true;
+        }
+        assertTrue(exceptionThrown);
+    }
 }
