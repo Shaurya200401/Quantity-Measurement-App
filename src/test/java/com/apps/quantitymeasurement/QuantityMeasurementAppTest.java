@@ -154,4 +154,20 @@ public class QuantityMeasurementAppTest {
         }
         assertTrue(exceptionThrown);
     }
+
+    // --- Immutability Test (UC9) ---
+    @Test
+    public void testAddition_ReturnsNewObject_PreservingOriginal() {
+        Quantity original = new Quantity(2.0, LengthUnit.INCHES);
+        Quantity toBeAdded = new Quantity(2.0, LengthUnit.INCHES);
+
+        Quantity result = original.add(toBeAdded);
+
+        // Assert result is 4 inches
+        assertTrue(result.equals(new Quantity(4.0, LengthUnit.INCHES)));
+        // Assert original remains 2 inches
+        assertTrue(original.equals(new Quantity(2.0, LengthUnit.INCHES)));
+        // Assert they are not the same object in memory
+        assertFalse(original == result);
+    }
 }
