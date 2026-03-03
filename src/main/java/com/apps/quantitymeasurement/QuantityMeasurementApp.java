@@ -35,15 +35,20 @@ public class QuantityMeasurementApp {
         System.out.println("1.0 TONNE == 1000.0 KG : " + tonne1.equals(kg1000));
     }
 
-    public static void demonstrateVolumeAndWeight() {
-        System.out.println("\nConcepts Learned by Implementing UC4-UC5:");
-        System.out.println("GENERIC DESIGN, EXTENDED UNITS");
+    public static void demonstrateCrossCategoryPrevention() {
+        System.out.println("\n--- Cross Category Prevention ---");
+        Quantity kg1 = new Quantity(1.0, WeightUnit.KG);
+        Quantity liters1 = new Quantity(1.0, VolumeUnit.LITRE);
+        System.out.println("1.0 KG == 1.0 LITRE : " + kg1.equals(liters1));
+
+        System.out.println("\nConcepts Learned by Implementing UC4-UC6:");
+        System.out.println("GENERIC DESIGN, POLYMORPHISM, INTERFACE ABSTRACTION");
     }
 
     public static void main(String[] args) {
         demonstrateLengthComparison();
         demonstrateVolumeComparison();
         demonstrateWeightComparison();
-        demonstrateVolumeAndWeight();
+        demonstrateCrossCategoryPrevention();
     }
 }

@@ -86,4 +86,18 @@ public class QuantityMeasurementAppTest {
         assertTrue(tonne.equals(kg));
     }
 
+    // --- Prevent Cross-Category Comparison ---
+    @Test
+    public void testCrossCategory_LengthAndVolume() {
+        Quantity inch = new Quantity(1.0, LengthUnit.INCHES);
+        Quantity ml = new Quantity(1.0, VolumeUnit.ML);
+        assertFalse(inch.equals(ml));
+    }
+
+    @Test
+    public void testCrossCategory_WeightAndVolume() {
+        Quantity kg = new Quantity(1.0, WeightUnit.KG);
+        Quantity liter = new Quantity(1.0, VolumeUnit.LITRE);
+        assertFalse(kg.equals(liter));
+    }
 }

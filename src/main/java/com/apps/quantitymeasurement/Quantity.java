@@ -17,6 +17,10 @@ public class Quantity {
         if (other == null)
             return false;
 
+        // Prevent cross-category comparison for UC6
+        if (this.unit.getClass() != other.unit.getClass())
+            return false;
+
         return Double.compare(this.convertToBaseUnit(), other.convertToBaseUnit()) == 0;
     }
 
