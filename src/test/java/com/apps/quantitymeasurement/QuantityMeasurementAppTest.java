@@ -100,4 +100,51 @@ public class QuantityMeasurementAppTest {
         Quantity liter = new Quantity(1.0, VolumeUnit.LITRE);
         assertFalse(kg.equals(liter));
     }
+
+    // --- Addition Tests ---
+    @Test
+
+    public void testAddition_Lengths_Explicit() {
+        Quantity foot1 = new Quantity(1.0, LengthUnit.FEET);
+        Quantity inch2 = new Quantity(2.0, LengthUnit.INCHES);
+        Quantity result = foot1.add(inch2, LengthUnit.INCHES);
+        assertTrue(result.equals(new Quantity(14.0, LengthUnit.INCHES)));
+    }
+
+    @Test
+    public void testAddition_Lengths_Explicit_Yard() {
+        Quantity yard1 = new Quantity(1.0, LengthUnit.YARDS);
+        Quantity feet3 = new Quantity(3.0, LengthUnit.FEET);
+        Quantity result = yard1.add(feet3, LengthUnit.YARDS);
+        assertTrue(result.equals(new Quantity(2.0, LengthUnit.YARDS)));
+    }
+
+    @Test
+    public void testAddition_Volumes() {
+        Quantity gallon1 = new Quantity(1.0, VolumeUnit.GALLON);
+        Quantity liters3_78 = new Quantity(3.78541, VolumeUnit.LITRE);
+        Quantity result = gallon1.add(liters3_78, VolumeUnit.LITRE);
+        assertTrue(result.equals(new Quantity(7.57, VolumeUnit.LITRE))); // 3.78541 + 3.78541 = 7.57082 ~ 7.57
+    }
+
+    @Test
+    public void testAddition_Weights() {
+        Quantity tonne1 = new Quantity(1.0, WeightUnit.TONNE);
+        Quantity kg1000 = new Quantity(1000.0, WeightUnit.KG);
+        Quantity result = tonne1.add(kg1000, WeightUnit.KG);
+        assertTrue(result.equals(new Quantity(2000.0, WeightUnit.KG)));
+    }
+
+    @Test
+    public void testAddition_CrossCategory_Exception() {
+        Quantity kg = new Quantity(1.0, WeightUnit.KG);
+        Quantity liter = new Quantity(1.0, VolumeUnit.LITRE);
+        boolean exceptionThrown = false;
+        try {
+            kg.add(liter, VolumeUnit.LITRE);
+        } catch (IllegalArgumentException e) {
+            exceptionThrown = true;
+        }
+        assertTrue(exceptionThrown);
+    }
 }

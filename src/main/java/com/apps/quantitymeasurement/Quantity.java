@@ -24,6 +24,19 @@ public class Quantity {
         return Double.compare(this.convertToBaseUnit(), other.convertToBaseUnit()) == 0;
     }
 
+    public Quantity add(Quantity other, IMeasurable targetUnit) {
+        if (other == null)
+            throw new IllegalArgumentException("Cannot add null quantity");
+        if (this.unit.getClass() != other.unit.getClass())
+            throw new IllegalArgumentException("Cannot add quantities of different categories");
+        if (targetUnit == null)
+            throw new IllegalArgumentException("Target unit cannot be null");
+
+        double sumInBase = this.convertToBaseUnit() + other.convertToBaseUnit();
+        double targetValue = sumInBase / targetUnit.getConversionFactor();
+        return new Quantity(Math.round(targetValue * 100.0) / 100.0, targetUnit);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

@@ -40,9 +40,24 @@ public class QuantityMeasurementApp {
         Quantity kg1 = new Quantity(1.0, WeightUnit.KG);
         Quantity liters1 = new Quantity(1.0, VolumeUnit.LITRE);
         System.out.println("1.0 KG == 1.0 LITRE : " + kg1.equals(liters1));
+    }
 
-        System.out.println("\nConcepts Learned by Implementing UC4-UC6:");
-        System.out.println("GENERIC DESIGN, POLYMORPHISM, INTERFACE ABSTRACTION");
+    public static void demonstrateAddition() {
+        System.out.println("\n--- Addition Demonstration ---");
+        Quantity feet1 = new Quantity(1.0, LengthUnit.FEET);
+        Quantity inches2 = new Quantity(2.0, LengthUnit.INCHES);
+        Quantity result1 = feet1.add(inches2, LengthUnit.INCHES);
+        System.out.println("1.0 FEET + 2.0 INCHES (in INCHES) = "
+                + result1.convertToBaseUnit() / LengthUnit.INCHES.getConversionFactor() + " INCHES");
+
+        Quantity gallon1 = new Quantity(1.0, VolumeUnit.GALLON);
+        Quantity liters3_78 = new Quantity(3.78541, VolumeUnit.LITRE);
+        Quantity result2 = gallon1.add(liters3_78, VolumeUnit.LITRE);
+        System.out.println("1.0 GALLON + 3.78541 LITRES (in LITRES) = "
+                + result2.convertToBaseUnit() / VolumeUnit.LITRE.getConversionFactor() + " LITRES");
+
+        System.out.println("\nConcepts Learned by Implementing UC7-UC9:");
+        System.out.println("ADDITION, METRIC CONVERSIONS, IMMUTABILITY");
     }
 
     public static void main(String[] args) {
@@ -50,5 +65,6 @@ public class QuantityMeasurementApp {
         demonstrateVolumeComparison();
         demonstrateWeightComparison();
         demonstrateCrossCategoryPrevention();
+        demonstrateAddition();
     }
 }
