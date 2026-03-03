@@ -103,7 +103,14 @@ public class QuantityMeasurementAppTest {
 
     // --- Addition Tests ---
     @Test
+    public void testAddition_Lengths_Implicit() {
+        Quantity inch2 = new Quantity(2.0, LengthUnit.INCHES);
+        Quantity inch2_again = new Quantity(2.0, LengthUnit.INCHES);
+        Quantity result = inch2.add(inch2_again);
+        assertTrue(result.equals(new Quantity(4.0, LengthUnit.INCHES)));
+    }
 
+    @Test
     public void testAddition_Lengths_Explicit() {
         Quantity foot1 = new Quantity(1.0, LengthUnit.FEET);
         Quantity inch2 = new Quantity(2.0, LengthUnit.INCHES);

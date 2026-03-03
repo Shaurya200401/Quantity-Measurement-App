@@ -37,6 +37,10 @@ public class Quantity {
         return new Quantity(Math.round(targetValue * 100.0) / 100.0, targetUnit);
     }
 
+    public Quantity add(Quantity other) {
+        return this.add(other, this.unit);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
